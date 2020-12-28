@@ -28,7 +28,7 @@ public class CategoryController {
     public ResponseEntity<List<Category>> queryByParentId(
             @RequestParam(value = "pid", defaultValue = "0") Long pid) {
         List<Category> list = this.categoryService.queryListByParent(pid);
-        if (list == null || list.size() < 1) {
+        if (list == null || list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(list);
