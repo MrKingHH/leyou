@@ -17,6 +17,11 @@ zuul:
   retryable: true
   routes:
     item-service: /item/** # 将/item/**映射到商品微服务
+  # /api/upload 的所有路径都不会经过网关
+  ignored-patterns: /upload/**
+  # upload-service微服务的所有请求都不经过网关
+  ignored-services:
+    - upload-service
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)
   ReadTimeout: 2000 # 通信超时时间(ms)
