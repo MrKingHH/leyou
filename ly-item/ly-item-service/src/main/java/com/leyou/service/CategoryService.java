@@ -24,4 +24,8 @@ public class CategoryService {
         LOGGER.info("开始分类查询服务");
         return this.categoryMapper.select(category);
     }
+
+    public List<Category> queryByBrandId(Long bid) {
+        return this.categoryMapper.queryByBrandId(bid);
+    }
 }

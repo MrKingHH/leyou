@@ -1,7 +1,6 @@
 package com.leyou.service;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.leyou.common.pojo.PageResult;
 import com.leyou.dto.BrandDTO;
 import com.leyou.item.pojo.Brand;
@@ -50,6 +49,26 @@ public class BrandService {
         this.brandMapper.insert(brand);
         for (Long cid : cids) {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
+        }
+    }
+
+    @Transactional
+    public void editBrand(Brand brand, List<Long> cids) {
+        LOGGER.info("开始修改商品属性");
+        //修改商品基本属性
+        Example example = new Example(Brand.class);
+        //根据商品ID修改商品基本属性
+        example.createCriteria().andEqualTo(brand.getId());
+        this.brandMapper.updateByExampleSelective(brand, example);
+        //更新新的商品分类ID
+        //目前最简单的思路就是删除原有的所有关联ID，重新插入
+        LOGGER.info("开始删除原有商品分类");
+        this.brandMapper.deleteCategoryBrand(brand.getId());
+        LOGGER.info("结束删除原有商品分类");
+        //重新插入商品的对应的分类ID
+        for (Long cid : cids) {
+            this.brandMapper.insertCategoryBrand(cid, brand.getId());
+            LOGGER.info("结束修改商品属性");
         }
     }
 }

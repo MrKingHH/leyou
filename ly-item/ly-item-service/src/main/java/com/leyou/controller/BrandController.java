@@ -50,4 +50,15 @@ public class BrandController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * 修改品牌
+     * @param brand
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<Void> editBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
+        this.brandService.editBrand(brand, cids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

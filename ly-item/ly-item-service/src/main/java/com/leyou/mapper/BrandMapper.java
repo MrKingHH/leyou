@@ -3,6 +3,7 @@ package com.leyou.mapper;
 import com.leyou.item.pojo.Brand;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
 
@@ -15,4 +16,13 @@ public interface BrandMapper extends Mapper<Brand> {
      */
     @Insert("INSERT INTO tb_category_brand (category_id, brand_id) VALUES (#{cid},#{bid})")
     int insertCategoryBrand(@Param("cid") Long cid, @Param("bid") Long bid);
+
+    /**
+     * 修改商品和商品分类的中间表数据
+     * @param cid 商品分类id
+     * @param bid 品牌id
+     * @return
+     */
+    @Update("DELETE FROM tb_category_brand WHERE brand_id = #{bid}")
+    int deleteCategoryBrand(@Param("bid") Long bid);
 }
