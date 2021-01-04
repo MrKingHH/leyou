@@ -56,10 +56,7 @@ public class BrandService {
     public void editBrand(Brand brand, List<Long> cids) {
         LOGGER.info("开始修改商品属性");
         //修改商品基本属性
-        Example example = new Example(Brand.class);
-        //根据商品ID修改商品基本属性
-        example.createCriteria().andEqualTo(brand.getId());
-        this.brandMapper.updateByExampleSelective(brand, example);
+        this.brandMapper.updateByPrimaryKey(brand);
         //更新新的商品分类ID
         //目前最简单的思路就是删除原有的所有关联ID，重新插入
         LOGGER.info("开始删除原有商品分类");
@@ -70,5 +67,13 @@ public class BrandService {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
             LOGGER.info("结束修改商品属性");
         }
+    }
+
+    @Transactional
+    public int deleteBrand(Long bid) {
+        LOGGER.info("开始删除商品");
+        int row = this.brandMapper.deleteByPrimaryKey(bid);
+        LOGGER.info("结束删除商品");
+        return row;
     }
 }

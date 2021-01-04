@@ -26,6 +26,9 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    /**
+     * 分页查询商品
+     * */
     @PostMapping("page")
     public ResponseEntity<PageResult<Brand>> queryBrandByPage(@Validated @RequestBody BrandVo brandVo, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -58,6 +61,19 @@ public class BrandController {
     @PutMapping
     public ResponseEntity<Void> editBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
         this.brandService.editBrand(brand, cids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * 删除商品
+     * @param bid 商品编号
+     * @return
+     */
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBrand(@RequestParam("bid") Long bid) {
+        if (this.brandService.deleteBrand(bid) == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

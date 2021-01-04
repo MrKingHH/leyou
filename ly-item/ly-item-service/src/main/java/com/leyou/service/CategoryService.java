@@ -21,8 +21,9 @@ public class CategoryService {
         LOGGER.info("开始分类查询服务");
         Category category = new Category();
         category.setParentId(pid);
-        LOGGER.info("开始分类查询服务");
-        return this.categoryMapper.select(category);
+        List<Category> categories = this.categoryMapper.select(category);
+        LOGGER.info("结束分类查询服务");
+        return categories;
     }
 
     public List<Category> queryByBrandId(Long bid) {
