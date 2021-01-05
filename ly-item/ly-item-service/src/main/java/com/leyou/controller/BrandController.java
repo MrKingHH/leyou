@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("brand")
 public class BrandController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(BrandController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BrandController.class);
 
     @Autowired
     private BrandService brandService;
@@ -40,6 +40,14 @@ public class BrandController {
         PageResult<Brand> brandPageResult = brandService.queryBrandByPageAndSort(brandDTO);
 
         return ResponseEntity.ok(brandPageResult);
+    }
+
+    /**
+     * 根据商品ID查询商品所属分类
+     * */
+    @GetMapping("cid/{id}")
+    public ResponseEntity<Brand> queryBrandByCategoryId(@PathVariable("id") Long cId) {
+        return null;
     }
 
     /**

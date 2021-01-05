@@ -44,6 +44,13 @@ public class BrandService {
         return new PageResult<>(pageInfo.getTotal(), pageInfo);
     }
 
+    /**
+     * 根据商品ID查询商品实体
+     * */
+    public Brand queryBrandByBrandId(Long bId) {
+        return this.brandMapper.selectByPrimaryKey(bId);
+    }
+
     @Transactional
     public void saveBrand(Brand brand, List<Long> cids) {
         this.brandMapper.insert(brand);

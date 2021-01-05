@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -28,5 +29,17 @@ public class CategoryService {
 
     public List<Category> queryByBrandId(Long bid) {
         return this.categoryMapper.queryByBrandId(bid);
+    }
+
+    /**
+     * 根据商品分类ID批量查询商品分类名称
+     * */
+    public List<String> queryCategoryNameByIds(List<Long> categoryIds) {
+        return categoryIds.stream().map(categoryId -> {
+            //根据主键查询商品ID
+            Category category = this.categoryMapper.selectByPrimaryKey(categoryId);
+            //返回每一个商品的名称
+            return category.getName();
+        }).collect(Collectors.toList());
     }
 }

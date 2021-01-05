@@ -1,15 +1,26 @@
 package com.leyou.dto;
 
 
-public class BrandDTO {
+/**
+ * @author 金余新
+ * @date 2021/1/5 10:54
+ */
+public class GoodsDTO {
     //当前页索引
     private Integer pageIndex;
     //每页大小
     private Integer rows;
-    //按哪个字段排序
-    private String sortBy;
-    //是否降序
-    private Boolean desc;
+    //按是否下架
+    private Boolean saleAble;
+
+    public Boolean getSaleAble() {
+        return saleAble;
+    }
+
+    public void setSaleAble(Boolean saleAble) {
+        this.saleAble = saleAble;
+    }
+
     //搜索关键字
     private String key;
 
@@ -29,21 +40,6 @@ public class BrandDTO {
         this.rows = rows;
     }
 
-    public String getSortBy() {
-        return sortBy;
-    }
-
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
-    }
-
-    public Boolean getDesc() {
-        return desc;
-    }
-
-    public void setDesc(Boolean desc) {
-        this.desc = desc;
-    }
 
     public String getKey() {
         return key;
